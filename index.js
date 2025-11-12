@@ -56,6 +56,49 @@ async function run() {
     })
 
 
+    // model delete
+
+    app.delete('/models/:id', async(req, res) =>{
+      const id = req.params.id
+      
+
+      const query = {_id: new ObjectId(id)}
+
+      const result = await modelsCollection.deleteOne(query)
+
+      res.send({
+        success: true,
+        result
+      })
+    })
+
+
+    //  model update
+
+    app.patch('/models/:id', async(req, res) =>{
+      const id = req.params.id
+
+      const updatedProduct = req.body
+      
+
+      const query = {_id: new ObjectId(id)}
+
+      const update = {
+        $set:{
+          name: updatedProduct.name,
+          price: updatedProduct.price
+        }
+      }
+
+      const result = await modelsCollection.updateOne(query,update)
+
+      res.send({
+        success: true,
+        result
+      })
+    })
+
+
 
 
     
