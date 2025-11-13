@@ -55,6 +55,12 @@ async function run() {
       })
     })
 
+    // search
+
+    app.get("/search", async(req, res)=>{
+
+    })
+
 
     // models delete
 
