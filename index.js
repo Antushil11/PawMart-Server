@@ -58,6 +58,9 @@ async function run() {
     // search
 
     app.get("/search", async(req, res)=>{
+      const search_text = req.query.search
+      const result = await modelsCollection.find({name: {$regex: search_text, $options: "i"}}).toArray()
+      res.send(result)
 
     })
 
