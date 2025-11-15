@@ -62,26 +62,6 @@ const client = new MongoClient(uri, {
   },
 });
 
-// const verifyToken = async (req, res, next) => {
-//   const authorization = req.headers.authorization;
-
-//   if (!authorization) {
-//     return res.status(401).send({
-//       message: "unauthorized access. Token not found!",
-//     });
-//   }
-
-//   const token = authorization.split(" ")[1];
-//   try {
-//     await admin.auth().verifyIdToken(token);
-
-//     next();
-//   } catch (error) {
-//     res.status(401).send({
-//       message: "unauthorized access.",
-//     });
-//   }
-// };
 
 async function run() {
   try {
@@ -141,7 +121,7 @@ async function run() {
 
     //  models id
 
-    app.get("/models/:id", async (req, res) => {
+    app.get("/models/:id",verifyFireBaseToken, async (req, res) => {
       const { id } = req.params;
       console.log(id);
 
@@ -226,7 +206,7 @@ async function run() {
 
     // bids related api
 
-    app.get("/bids",logger,verifyFireBaseToken, async (req, res) => {
+    app.get("/bids",verifyFireBaseToken, async (req, res) => {
       console.log("header",req)
       
       const email = req.query.email;
